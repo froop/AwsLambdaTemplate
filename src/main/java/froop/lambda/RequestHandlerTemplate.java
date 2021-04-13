@@ -20,7 +20,7 @@ public class RequestHandlerTemplate implements RequestHandler<Map<String, Object
    *      "keyCharSet": "0123456789abcdefghijklmnopqrstuvwxyz",
    *      "plainText": "plain001",
    *      "cipherText": "dI5r7aoODMRkgH5qX6oTAA==",
-   *      "amount": 1000000,
+   *      "capacity": 1000000,
    *      "start": 1000001
    * @return keyText
    */
@@ -30,13 +30,13 @@ public class RequestHandlerTemplate implements RequestHandler<Map<String, Object
     String keyCharSet = (String) input.get("keyCharSet");
     String plainText = (String) input.get("plainText");
     String cipherText = (String) input.get("cipherText");
-    int amount = (int) input.get("amount");
-    long start = (int) input.get("start");
+    int capacity = Integer.valueOf(input.get("capacity").toString());
+    long start = Long.valueOf(input.get("start").toString());
 
     try {
       byte[] encrypted = Base64.decodeBase64(cipherText);
       CipherCondition cond = new CipherCondition(algorithm, keyCharSet, plainText, encrypted);
-      String keyText = new MultithreadTemplate(cond, amount, start).execute();
+      String keyText = new MultithreadTemplate(cond, capacity, start).execute();
 
       Map<String, Object> output = new HashMap<>();
       output.put("keyText", keyText);

@@ -17,32 +17,30 @@ public class MultithreadTemplate {
   private final CipherCondition condition;
   private final long start;
   private final int poolSize;
-  private final int amount;
+  private final int capacity;
 
-  public MultithreadTemplate(CipherCondition condition, int amount, long start) {
+  public MultithreadTemplate(CipherCondition condition, int capacity, long start) {
     this.condition = condition;
-    this.amount = amount;
+    this.capacity = capacity;
     this.start = start;
     this.poolSize = Runtime.getRuntime().availableProcessors();
     System.out.println("poolSize: " + poolSize);
   }
 
   public String execute() throws GeneralSecurityException {
-    List<Future<String>> futures = new ArrayList<>();
-    ExecutorService executor = Executors.newFixedThreadPool(poolSize);
-    int amountByThread = amount / poolSize;
+    final List<Future<String>> futures = new ArrayList<>();
+    final ExecutorService executor = Executors.newFixedThreadPool(poolSize);
+    final int threadCapBase = capacity / poolSize;
+
     long next = start;
     for (int i = 0; i < poolSize; i++) {
-      int capacity;
-      if (next - start + amountByThread < amount) {
-        capacity = amountByThread;
-      } else {
-        capacity = amount - (int)(next - start);
-      }
-      HeavyTask task = new HeavyTask(condition, capacity, next);
+      int remainder = i < (capacity % poolSize) ? 1 : 0;
+      int threadCap = threadCapBase + remainder;
+      HeavyTask task = new HeavyTask(condition, threadCap, next);
       futures.add(executor.submit(task));
-      next += capacity;
+      next += threadCap;
     }
+
     try {
       for (Future<String> future : futures) {
         String res = future.get();
