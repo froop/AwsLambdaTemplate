@@ -13,17 +13,6 @@ import froop.lambda.MultithreadTemplate.CipherCondition;
 
 public class RequestHandlerTemplate implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 
-  /**
-   * @param input
-   *    e.g.
-   *      "algorithm": "Blowfish",
-   *      "keyCharSet": "0123456789abcdefghijklmnopqrstuvwxyz",
-   *      "plainText": "plain001",
-   *      "cipherText": "dI5r7aoODMRkgH5qX6oTAA==",
-   *      "capacity": 1000000,
-   *      "start": 1
-   * @return keyText
-   */
   @Override
   public Map<String, Object> handleRequest(Map<String, Object> input, Context context) {
     String algorithm = (String) input.get("algorithm");
