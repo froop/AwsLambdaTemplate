@@ -21,7 +21,7 @@ public class RequestHandlerTemplate implements RequestHandler<Map<String, Object
    *      "plainText": "plain001",
    *      "cipherText": "dI5r7aoODMRkgH5qX6oTAA==",
    *      "capacity": 1000000,
-   *      "start": 1000001
+   *      "start": 1
    * @return keyText
    */
   @Override
@@ -38,8 +38,9 @@ public class RequestHandlerTemplate implements RequestHandler<Map<String, Object
       CipherCondition cond = new CipherCondition(algorithm, keyCharSet, plainText, encrypted);
       String keyText = new MultithreadTemplate(cond, capacity, start).execute();
 
-      Map<String, Object> output = new HashMap<>();
+      Map<String, Object> output = new HashMap<>(input);
       output.put("keyText", keyText);
+      output.put("start", start + capacity);
       return output;
 
     } catch (GeneralSecurityException e) {
