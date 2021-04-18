@@ -72,6 +72,72 @@ class MultithreadTemplateTest {
   }
 
   @Test
+  void testToText_charSet2() {
+    String charSet = "01";
+    int i = 0;
+    assertEquals("", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("0", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("1", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("00", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("01", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("11", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("000", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("001", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("101", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("011", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("111", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("0000", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("0001", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("1001", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("0101", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("1101", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("0011", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("1011", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("0111", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("1111", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("00000", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("00001", MultithreadTemplate.toText(charSet, i++));
+  }
+
+  @Test
+  void testToText_charSet3() {
+    String charSet = "012";
+    int i = 0;
+    assertEquals("", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("0", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("1", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("2", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("00", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("01", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("11", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("21", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("02", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("12", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("22", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("000", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("001", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("101", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("201", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("011", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("111", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("211", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("021", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("121", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("221", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("002", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("102", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("202", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("012", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("112", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("212", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("022", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("122", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("222", MultithreadTemplate.toText(charSet, i++));
+//    assertEquals("0000", MultithreadTemplate.toText(charSet, i++));
+    assertEquals("0001", MultithreadTemplate.toText(charSet, i++));
+  }
+
+  @Test
   void testEncrypt() throws GeneralSecurityException {
     assertEquals("dI5r7aoODMRkgH5qX6oTAA==", encrypt("key01", "plain001"));
   }

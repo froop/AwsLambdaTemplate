@@ -99,24 +99,24 @@ public class MultithreadTemplate {
       }
       return "";
     }
+  }
 
-    private static String toText(String charSet, long index) {
-      StringBuilder keyBuilder = new StringBuilder();
-      long next = index;
-      while (next > 0) {
-        int remainder = (int)(next % charSet.length());
-        keyBuilder.append(charSet.charAt(remainder));
-        next /= charSet.length();
-      }
-      return keyBuilder.toString();
+  static String toText(String charSet, long index) {
+    StringBuilder keyBuilder = new StringBuilder();
+    long next = index;
+    while (next > 0) {
+      int remainder = (int)(next % charSet.length());
+      keyBuilder.append(charSet.charAt(remainder));
+      next /= charSet.length();
     }
+    return keyBuilder.toString();
+  }
 
-    private static byte[] toBytes(String str) {
-      try {
-        return str.getBytes("UTF-8");
-      } catch (UnsupportedEncodingException e) {
-        throw new IllegalStateException(e);
-      }
+  private static byte[] toBytes(String str) {
+    try {
+      return str.getBytes("UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalStateException(e);
     }
   }
 }
