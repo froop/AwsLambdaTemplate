@@ -36,4 +36,18 @@ public class RequestHandlerTemplate implements RequestHandler<Map<String, Object
       throw new RuntimeException(e);
     }
   }
+
+  public static void main(String[] args) {
+    Map<String, Object> input = new HashMap<>();
+    input.put("algorithm", "Blowfish");
+    input.put("keyCharSet", "0123456789abcdefghijklmnopqrstuvwxyz");
+    input.put("plainText", "plain001");
+    input.put("cipherText", "dI5r7aoODMRkgH5qX6oTAA==");
+    input.put("capacity", 1000000);
+    input.put("start", 1000001);
+
+    Map<String, Object> output = new RequestHandlerTemplate().handleRequest(input, null);
+
+    System.out.println(output);
+  }
 }
