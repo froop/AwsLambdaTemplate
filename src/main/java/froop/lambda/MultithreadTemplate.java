@@ -91,32 +91,36 @@ public class MultithreadTemplate {
           throw new InterruptedException();
         }
         String key = toText(condition.keyCharSet, counter);
-        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(toBytes(key), condition.algorithm));
-        byte[] encrypted = cipher.doFinal(toBytes(condition.plainText));
-        if (Arrays.equals(encrypted, condition.encrypted)) {
+        if (match(key)) {
           return key;
         }
       }
       return "";
     }
 
-    private static String toText(String charSet, long index) {
-      StringBuilder keyBuilder = new StringBuilder();
-      long next = index;
-      while (next > 0) {
-        int remainder = (int)(next % charSet.length());
-        keyBuilder.append(charSet.charAt(remainder));
-        next /= charSet.length();
-      }
-      return keyBuilder.toString();
+    private boolean match(String key) throws GeneralSecurityException {
+      cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(toBytes(key), condition.algorithm));
+      byte[] encrypted = cipher.doFinal(toBytes(condition.plainText));
+      return Arrays.equals(encrypted, condition.encrypted);
     }
+  }
 
-    private static byte[] toBytes(String str) {
-      try {
-        return str.getBytes("UTF-8");
-      } catch (UnsupportedEncodingException e) {
-        throw new IllegalStateException(e);
-      }
+  static String toText(String charSet, long index) {
+    StringBuilder keyBuilder = new StringBuilder();
+    long next = index;
+    while (next > 0) {
+      int remainder = (int)(next % charSet.length());
+      keyBuilder.append(charSet.charAt(remainder));
+      next /= charSet.length();
+    }
+    return keyBuilder.toString();
+  }
+
+  private static byte[] toBytes(String str) {
+    try {
+      return str.getBytes("UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalStateException(e);
     }
   }
 }
