@@ -91,13 +91,17 @@ public class MultithreadTemplate {
           throw new InterruptedException();
         }
         String key = toText(condition.keyCharSet, counter);
-        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(toBytes(key), condition.algorithm));
-        byte[] encrypted = cipher.doFinal(toBytes(condition.plainText));
-        if (Arrays.equals(encrypted, condition.encrypted)) {
+        if (match(key)) {
           return key;
         }
       }
       return "";
+    }
+
+    private boolean match(String key) throws GeneralSecurityException {
+      cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(toBytes(key), condition.algorithm));
+      byte[] encrypted = cipher.doFinal(toBytes(condition.plainText));
+      return Arrays.equals(encrypted, condition.encrypted);
     }
   }
 
