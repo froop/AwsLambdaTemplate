@@ -30,6 +30,7 @@ public class RequestHandlerTemplate implements RequestHandler<Map<String, Object
       Map<String, Object> output = new HashMap<>(input);
       output.put("keyText", keyText);
       output.put("start", start + capacity);
+      output.put("lastMatching", MultithreadTemplate.toText(keyCharSet, start + capacity - 1));
       return output;
 
     } catch (GeneralSecurityException e) {
